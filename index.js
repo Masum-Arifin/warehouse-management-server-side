@@ -121,7 +121,7 @@ async function run() {
         })
         // -------------------------------------------
         // AUTH - GET JWT
-        app.post('/token', async (req, res) => {
+        app.post('/login', async (req, res) => {
             const user = req.body;
             const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
                 expiresIn: '1d'
