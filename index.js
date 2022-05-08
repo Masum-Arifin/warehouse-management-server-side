@@ -97,12 +97,12 @@ async function run() {
             res.send(result);
         })
 
-        //items collection post api
-        app.post('/items', async (req, res) => {
-            const items = req.body;
-            const result = await itemsCollection.insertOne(items);
-            res.send(result);
-        })
+        // //items collection post api
+        // app.post('/items', async (req, res) => {
+        //     const items = req.body;
+        //     const result = await itemsCollection.insertOne(items);
+        //     res.send(result);
+        // })
         //  items collection get api
         app.get('/items', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email;
