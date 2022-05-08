@@ -70,18 +70,18 @@ async function run() {
             res.send(result);
         })
         // delete a product
-        app.delete("/products/:id", async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const result = await productCollection.deleteOne(query);
-            res.send(result);
-        })
+        // app.delete("/products/:id", async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: ObjectId(id) };
+        //     const result = await productCollection.deleteOne(query);
+        //     res.send(result);
+        // })
         // Post api 
-        // app.post('/products', async (req, res) => {
-        //     const newProducts = req.body;
-        //     const result = await productCollection.insertOne(newProducts);
-        //     res.send(result)
-        // });
+        app.post('/products', async (req, res) => {
+            const newProducts = req.body;
+            const result = await productCollection.insertOne(newProducts);
+            res.send(result)
+        });
         //Update user or decrees by 1 when click delevery 
         app.put('/products/:id', async (req, res) => {
             const id = req.params.id;
