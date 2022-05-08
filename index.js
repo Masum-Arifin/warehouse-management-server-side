@@ -15,11 +15,11 @@ app.use(express.json());
 
 
 // verifyJWT
-function verifyJWT(req, res, next) {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-        return res.status(401).send({ message: 'Unauthorized access' })
-    }
+// function verifyJWT(req, res, next) {
+//     const authHeader = req.headers.authorization;
+//     if (!authHeader) {
+//         return res.status(401).send({ message: 'Unauthorized access' })
+//     }
     const token = authHeader.split(' ')[1];
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if (err) {
@@ -47,11 +47,11 @@ app.get('/', (req, res) => {
 //async function run 
 async function run() {
     try {
-        // await client.connect();
-        // const productCollection = client.db("warehouse").collection("products");
-        // const sectionCollection = client.db("warehouse").collection("data");
-        // const itemsCollection = client.db("warehouse").collection("items")
-        // console.log('db connected');
+        await client.connect();
+        const productCollection = client.db("warehouse").collection("products");
+        const sectionCollection = client.db("warehouse").collection("data");
+        const itemsCollection = client.db("warehouse").collection("items")
+        console.log('db connected');
 
         // use get and load all data by DB
         app.get("/products", async (req, res) => {
