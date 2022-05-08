@@ -63,19 +63,19 @@ async function run() {
             res.send(data);
         })
         //  let get api for single id
-        app.get('/products/:id', async (req, res) => {
-            const id = req.params;
-            const query = { _id: ObjectId(id) };
-            const result = await productCollection.findOne(query);
-            res.send(result);
-        })
-        // delete a product
-        // app.delete("/products/:id", async (req, res) => {
-        //     const id = req.params.id;
+        // app.get('/products/:id', async (req, res) => {
+        //     const id = req.params;
         //     const query = { _id: ObjectId(id) };
-        //     const result = await productCollection.deleteOne(query);
+        //     const result = await productCollection.findOne(query);
         //     res.send(result);
         // })
+        // delete a product
+        app.delete("/products/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productCollection.deleteOne(query);
+            res.send(result);
+        })
         // Post api 
         app.post('/products', async (req, res) => {
             const newProducts = req.body;
