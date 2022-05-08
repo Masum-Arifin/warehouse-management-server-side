@@ -54,14 +54,14 @@ async function run() {
         console.log('db connected');
 
         // use get and load all data by DB
-        app.get("/products", async (req, res) => {
-            const products = await productCollection.find({}).toArray();
-            res.send(products);
-        })
-        // app.get("/data", async (req, res) => {
-        //     const data = await sectionCollection.find({}).toArray();
-        //     res.send(data);
+        // app.get("/products", async (req, res) => {
+        //     const products = await productCollection.find({}).toArray();
+        //     res.send(products);
         // })
+        app.get("/data", async (req, res) => {
+            const data = await sectionCollection.find({}).toArray();
+            res.send(data);
+        })
         //  let get api for single id
         app.get('/products/:id', async (req, res) => {
             const id = req.params;
