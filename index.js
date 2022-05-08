@@ -83,26 +83,26 @@ async function run() {
             res.send(result)
         });
         //Update user or decrees by 1 when click delevery 
-        app.put('/products/:id', async (req, res) => {
-            const id = req.params.id;
-            const updateQuantity = req.body;
-            const filter = { _id: ObjectId(id) };
-            const options = { upsert: true };
-            const updatedDoc = {
-                $set: {
-                    quantity: updateQuantity.quantity
-                }
-            };
-            const result = await productCollection.updateOne(filter, updatedDoc, options);
-            res.send(result);
-        })
-
-        // //items collection post api
-        // app.post('/items', async (req, res) => {
-        //     const items = req.body;
-        //     const result = await itemsCollection.insertOne(items);
+        // app.put('/products/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const updateQuantity = req.body;
+        //     const filter = { _id: ObjectId(id) };
+        //     const options = { upsert: true };
+        //     const updatedDoc = {
+        //         $set: {
+        //             quantity: updateQuantity.quantity
+        //         }
+        //     };
+        //     const result = await productCollection.updateOne(filter, updatedDoc, options);
         //     res.send(result);
         // })
+
+        //items collection post api
+        app.post('/items', async (req, res) => {
+            const items = req.body;
+            const result = await itemsCollection.insertOne(items);
+            res.send(result);
+        })
         //  items collection get api
         app.get('/items', verifyJWT, async (req, res) => {
             const decodedEmail = req.decoded.email;
