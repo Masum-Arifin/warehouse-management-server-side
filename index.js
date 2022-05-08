@@ -58,17 +58,17 @@ async function run() {
             const products = await productCollection.find({}).toArray();
             res.send(products);
         })
-        app.get("/data", async (req, res) => {
-            const data = await sectionCollection.find({}).toArray();
-            res.send(data);
-        })
-        //  let get api for single id
-        // app.get('/products/:id', async (req, res) => {
-        //     const id = req.params;
-        //     const query = { _id: ObjectId(id) };
-        //     const result = await productCollection.findOne(query);
-        //     res.send(result);
+        // app.get("/data", async (req, res) => {
+        //     const data = await sectionCollection.find({}).toArray();
+        //     res.send(data);
         // })
+        //  let get api for single id
+        app.get('/products/:id', async (req, res) => {
+            const id = req.params;
+            const query = { _id: ObjectId(id) };
+            const result = await productCollection.findOne(query);
+            res.send(result);
+        })
         // delete a product
         app.delete("/products/:id", async (req, res) => {
             const id = req.params.id;
