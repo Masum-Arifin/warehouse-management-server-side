@@ -47,17 +47,17 @@ app.get('/', (req, res) => {
 //async function run 
 async function run() {
     try {
-        await client.connect();
-        const productCollection = client.db("warehouse").collection("products");
-        const sectionCollection = client.db("warehouse").collection("data");
-        const itemsCollection = client.db("warehouse").collection("items")
-        console.log('db connected');
+        // await client.connect();
+        // const productCollection = client.db("warehouse").collection("products");
+        // const sectionCollection = client.db("warehouse").collection("data");
+        // const itemsCollection = client.db("warehouse").collection("items")
+        // console.log('db connected');
 
         // use get and load all data by DB
-        // app.get("/products", async (req, res) => {
-        //     const products = await productCollection.find({}).toArray();
-        //     res.send(products);
-        // })
+        app.get("/products", async (req, res) => {
+            const products = await productCollection.find({}).toArray();
+            res.send(products);
+        })
         app.get("/data", async (req, res) => {
             const data = await sectionCollection.find({}).toArray();
             res.send(data);
