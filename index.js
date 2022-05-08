@@ -77,25 +77,25 @@ async function run() {
             res.send(result);
         })
         // Post api 
-        app.post('/products', async (req, res) => {
-            const newProducts = req.body;
-            const result = await productCollection.insertOne(newProducts);
-            res.send(result)
-        });
+        // app.post('/products', async (req, res) => {
+        //     const newProducts = req.body;
+        //     const result = await productCollection.insertOne(newProducts);
+        //     res.send(result)
+        // });
         //Update user or decrees by 1 when click delevery 
-        // app.put('/products/:id', async (req, res) => {
-        //     const id = req.params.id;
-        //     const updateQuantity = req.body;
-        //     const filter = { _id: ObjectId(id) };
-        //     const options = { upsert: true };
-        //     const updatedDoc = {
-        //         $set: {
-        //             quantity: updateQuantity.quantity
-        //         }
-        //     };
-        //     const result = await productCollection.updateOne(filter, updatedDoc, options);
-        //     res.send(result);
-        // })
+        app.put('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const updateQuantity = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: updateQuantity.quantity
+                }
+            };
+            const result = await productCollection.updateOne(filter, updatedDoc, options);
+            res.send(result);
+        })
 
         //items collection post api
         app.post('/items', async (req, res) => {
