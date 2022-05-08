@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
@@ -15,24 +15,29 @@ app.use(express.json());
 
 
 // verifyJWT
-function verifyJWT(req, res, next) {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) {
-        return res.status(401).send({ message: 'Unauthorized access' })
-    }
-    const token = authHeader.split(' ')[1];
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(403).send({ message: 'Forbidden access' });
-        }
-        //console.log('decoded', decoded);
-        req.decoded = decoded;
-        next();
-    })
-}
+// function verifyJWT(req, res, next) {
+//     const authHeader = req.headers.authorization;
+//     if (!authHeader) {
+//         return res.status(401).send({ message: 'Unauthorized access' })
+//     }
+//     const token = authHeader.split(' ')[1];
+//     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+//         if (err) {
+//             return res.status(403).send({ message: 'Forbidden access' });
+//         }
+//         //console.log('decoded', decoded);
+//         req.decoded = decoded;
+//         next();
+//     })
+// }
 
 //for connect database
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.jnjyz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.xmqki.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+console.log(uri);
+
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}
+// @cluster0.jnjyz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// console.log(uri);
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -46,9 +51,9 @@ app.get('/', (req, res) => {
 async function run() {
     try {
         await client.connect();
-        const productCollection = client.db("warehouse ").collection("products");
-        const sectionCollection = client.db("warehouse ").collection("data");
-        const itemsCollection = client.db("warehouse ").collection("items")
+        const productCollection = client.db("warehouse").collection("products");
+        const sectionCollection = client.db("warehouse").collection("data");
+        const itemsCollection = client.db("warehouse").collection("items")
         console.log('db connected');
 
         // use get and load all data by DB
@@ -102,30 +107,30 @@ async function run() {
             res.send(result);
         })
         //  items collection get api
-        app.get('/items', verifyJWT, async (req, res) => {
-            const decodedEmail = req.decoded.email;
-            const authHeader = req.headers.authorization;
-            // check email 
-            const email = req.query.email;
-            if (email === decodedEmail) {
-                const query = { email: email }
-                const cursor = itemsCollection.find(query);
-                const items = await cursor.toArray();
-                res.send(items);
-            }
-            else{
-                res.status(403).send({message: 'forbidden access'})
-            }
-        })
+        // app.get('/items', verifyJWT, async (req, res) => {
+        //     const decodedEmail = req.decoded.email;
+        //     const authHeader = req.headers.authorization;
+        //     // check email 
+        //     const email = req.query.email;
+        //     if (email === decodedEmail) {
+        //         const query = { email: email }
+        //         const cursor = itemsCollection.find(query);
+        //         const items = await cursor.toArray();
+        //         res.send(items);
+        //     }
+        //     else{
+        //         res.status(403).send({message: 'forbidden access'})
+        //     }
+        // })
         // -------------------------------------------
         // AUTH - GET JWT
-        app.post('/token', async (req, res) => {
-            const user = req.body;
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-                expiresIn: '1d'
-            });
-            res.send({ accessToken })
-        })
+        // app.post('/token', async (req, res) => {
+        //     const user = req.body;
+        //     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        //         expiresIn: '1d'
+        //     });
+        //     res.send({ accessToken })
+        // })
         // -------------------------------------------
 
     }
