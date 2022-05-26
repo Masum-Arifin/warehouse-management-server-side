@@ -74,11 +74,11 @@ async function run() {
       if (req.query.email) {
         const email = req.query.email;
         query = { email };
-        const result = await itemsCollection.find(query).toArray();
+        const result = await productCollection.find(query).toArray();
         res.send(result);
       } else {
         query = {};
-        const result = await itemsCollection.find(query).toArray();
+        const result = await productCollection.find(query).toArray();
         res.send(result);
       }
     });
