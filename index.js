@@ -157,3 +157,5 @@ run().catch(console.dir);
 app.listen(port, () => {
   console.log("in sha allah it is work", port);
 });
+
+module.exports = app;
